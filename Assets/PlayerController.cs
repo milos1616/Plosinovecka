@@ -22,15 +22,15 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Vector2 position = this.transform.position;
-            Vector2 direction = new Vector2(position.x - 1, position.y);
-            this.transform.position = Vector2.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
+            Vector3 position = this.transform.position;
+            Vector3 direction = new Vector3(position.x - 1, position.y, this.transform.position.z);
+            this.transform.position = Vector3.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            Vector2 position = this.transform.position;
-            Vector2 direction = new Vector2(position.x + 1, position.y);
-            this.transform.position = Vector2.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
+            Vector3 position = this.transform.position;
+            Vector3 direction = new Vector3(position.x + 1, position.y, this.transform.position.z);
+            this.transform.position = Vector3.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
