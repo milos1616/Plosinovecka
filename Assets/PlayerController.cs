@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     public float jumpPower = 700;
     public float moveSpeed = 100;
+    public Canvas canvas;
     
     int jumpRemain = 2;
     
@@ -20,18 +21,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Vector3 position = this.transform.position;
-            Vector3 direction = new Vector3(position.x - 1, position.y, this.transform.position.z);
-            this.transform.position = Vector3.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Vector3 position = this.transform.position;
-            Vector3 direction = new Vector3(position.x + 1, position.y, this.transform.position.z);
-            this.transform.position = Vector3.MoveTowards(position, direction, Time.deltaTime * moveSpeed);
-        }
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal")*moveSpeed, rb.velocity.y);
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (jumpRemain > 0)
@@ -40,11 +30,16 @@ public class PlayerController : MonoBehaviour
                 jumpRemain--;
             }
         }
+        if (transform.position.x > canvas.pixelRect.width)
+        {
+            transform.position = new Vector2(-canvas.pixelRect.width, transform.position.y);
+        }
+        if (transform.position.x < -canvas.pixelRect.width)
+        {
+            transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
+        }
     }
-    void OnBecameInvisible()
-    {
-        Destroy(this.gameObject);
-    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag=="Enviroment")
