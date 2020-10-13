@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     public float jumpPower = 700;
     public float moveSpeed = 100;
     public Canvas canvas;
-    
+    public GameObject deathScreen;
+
     int jumpRemain = 2;
     
     // Start is called before the first frame update
@@ -32,9 +33,9 @@ public class PlayerController : MonoBehaviour
         }
         if (transform.position.x > canvas.pixelRect.width)
         {
-            transform.position = new Vector2(-canvas.pixelRect.width, transform.position.y);
+            transform.position = new Vector2(0, transform.position.y);
         }
-        if (transform.position.x < -canvas.pixelRect.width)
+        if (transform.position.x < 0)
         {
             transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
         }
@@ -46,5 +47,12 @@ public class PlayerController : MonoBehaviour
         {
             jumpRemain = 2;
         }
+        else if(collision.gameObject.tag == "Death")
+        {
+            Time.timeScale = 0f;
+            deathScreen.SetActive(true);
+        }
     }
+    
+
 }
