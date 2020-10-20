@@ -9,14 +9,24 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 100;
     public Canvas canvas;
     public GameObject deathScreen;
+    public KeyCode buttonJump;
+    public KeyCode buttonLeft;
+    public KeyCode buttonRight;
 
     int jumpRemain = 2;
-    
+
     void Update()
     {
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal")*moveSpeed, rb.velocity.y);
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(buttonLeft))
+        {
+            rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
+        }
+        if(Input.GetKeyDown(buttonRight))
+        {
+            rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
+        }
+        if (Input.GetKeyDown(buttonJump))
         {
             if (jumpRemain > 0)
             {
@@ -36,16 +46,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag=="Enviroment")
+        if (collision.gameObject.tag == "Enviroment")
         {
-            jumpRemain = 2;
+            Vector2 hit = collision.contacts[0].normal;
+            float angle = Vector2.Angle(hit, Vector2.down);
+            if (Mathf.Approximately(angle, 180))
+            {
+                jumpRemain = 2;
+            }          
         }
-        else if(collision.gameObject.tag == "Death")
+        else if (collision.gameObject.tag == "Death")
         {
             Time.timeScale = 0f;
             deathScreen.SetActive(true);
-        }
+        }  
     }
-    
+
 
 }
