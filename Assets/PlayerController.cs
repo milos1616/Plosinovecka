@@ -12,12 +12,21 @@ public class PlayerController : MonoBehaviour
     public KeyCode buttonJump;
     public KeyCode buttonLeft;
     public KeyCode buttonRight;
+    public KeyCode buttonFire;
+    public GameObject bullet;
+    public float shotPower = 100;
 
     int jumpRemain = 2;
 
     void Update()
     {
         Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
+
+        if (Input.GetKeyDown(buttonFire))
+        {
+            GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
+            bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+        }
         if(Input.GetKeyDown(buttonLeft))
         {
             rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
@@ -42,7 +51,8 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
         }
-    }
+    
+}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
