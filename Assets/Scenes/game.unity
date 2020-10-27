@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656039ecee9db4d46bb0ed1643592252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10
+  speed: 0
 --- !u!1001 &1398220020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1353,6 +1353,18 @@ PrefabInstance:
       propertyPath: buttonRight
       value: 275
       objectReference: {fileID: 0}
+    - target: {fileID: 4054316922735212996, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
+      propertyPath: buttonFire
+      value: 108
+      objectReference: {fileID: 0}
+    - target: {fileID: 4054316922735212996, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1759567465}
+    - target: {fileID: 4054316922735212996, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 2098899551}
     - target: {fileID: 4054316922735212997, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1905,7 +1917,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5969187920404202071, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
       propertyPath: speed
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403327512903588421, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2094,6 +2106,10 @@ PrefabInstance:
       propertyPath: deathScreen
       value: 
       objectReference: {fileID: 2098899551}
+    - target: {fileID: 4054316922735212996, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
+      propertyPath: buttonFire
+      value: 102
+      objectReference: {fileID: 0}
     - target: {fileID: 4054316922735212997, guid: 019777a47bd9bf84c848186e40c3e2b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -15,44 +15,55 @@ public class PlayerController : MonoBehaviour
     public KeyCode buttonFire;
     public GameObject bullet;
     public float shotPower = 100;
-
+    private bool stunned = false;
     int jumpRemain = 2;
+    float stunTimer = 0f;
+    public float stunTime = 2f;
 
     void Update()
     {
-        Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
+        if (!stunned)
+        {
 
-        if (Input.GetKeyDown(buttonFire))
-        {
-            GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
-            bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
-        }
-        if(Input.GetKeyDown(buttonLeft))
-        {
-            rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
-        }
-        if(Input.GetKeyDown(buttonRight))
-        {
-            rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
-        }
-        if (Input.GetKeyDown(buttonJump))
-        {
-            if (jumpRemain > 0)
+            Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
+            
+            if (Input.GetKeyDown(buttonFire))
             {
-                rb.AddForce(new Vector2(0, jumpPower));
-                jumpRemain--;
+                GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
+                bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+            }
+            if (Input.GetKeyDown(buttonLeft))
+            {
+                rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
+            }
+            if (Input.GetKeyDown(buttonRight))
+            {
+                rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
+            }
+            if (Input.GetKeyDown(buttonJump))
+            {
+                if (jumpRemain > 0)
+                {
+                    rb.AddForce(new Vector2(0, jumpPower));
+                    jumpRemain--;
+                }
+            }
+            if (transform.position.x > canvas.pixelRect.width)
+            {
+                transform.position = new Vector2(0, transform.position.y);
+            }
+            if (transform.position.x < 0)
+            {
+                transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
             }
         }
-        if (transform.position.x > canvas.pixelRect.width)
+
+        stunTimer += Time.deltaTime;
+        if (stunTimer >= stunTime)
         {
-            transform.position = new Vector2(0, transform.position.y);
+            stunned = false;
         }
-        if (transform.position.x < 0)
-        {
-            transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
-        }
-    
-}
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -71,6 +82,10 @@ public class PlayerController : MonoBehaviour
             deathScreen.SetActive(true);
         }  
     }
-
+    public void onHit()
+    {
+        stunned = true;
+        stunTimer = 0f;
+    }
 
 }

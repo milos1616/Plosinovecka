@@ -119,6 +119,10 @@ MonoBehaviour:
   buttonJump: 119
   buttonLeft: 97
   buttonRight: 100
+  buttonFire: 0
+  bullet: {fileID: 6490639887403235604, guid: 196a5263f571aa644a5337529087084e, type: 3}
+  shotPower: 5000
+  stunTime: 2
 --- !u!61 &4054316922735213000
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -179,7 +183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.6, y: 6.6}
+  m_AnchoredPosition: {x: 17, y: 6.6}
   m_SizeDelta: {x: 12.127481, y: 5.332882}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1428848441813571059
