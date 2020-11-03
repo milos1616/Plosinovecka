@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     int jumpRemain = 2;
     float stunTimer = 0f;
     public float stunTime = 2f;
+    public bool right = true;
 
     void Update()
     {
@@ -27,18 +28,32 @@ public class PlayerController : MonoBehaviour
 
             Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
             
-            if (Input.GetKeyDown(buttonFire))
+            if (Input.GetKey(buttonFire))
             {
+
                 GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
-                bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+                if (right)
+                {
+                    bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+                }
+                else
+                {
+                    bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
+                }
+
             }
-            if (Input.GetKeyDown(buttonLeft))
+            if (Input.GetKey(buttonLeft))
             {
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
+                right = false;
+                transform.GetChild(0).transform.position = new Vector2(-Mathf.Abs(transform.GetChild(0).transform.position.x), transform.position.y);
             }
-            if (Input.GetKeyDown(buttonRight))
+            if (Input.GetKey(buttonRight))
             {
                 rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
+                right = true;
+                transform.GetChild(0).transform.position = new Vector2(Mathf.Abs(transform.GetChild(0).transform.position.x), transform.position.y);
+
             }
             if (Input.GetKeyDown(buttonJump))
             {
