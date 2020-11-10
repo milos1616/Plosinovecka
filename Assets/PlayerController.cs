@@ -20,6 +20,17 @@ public class PlayerController : MonoBehaviour
     float stunTimer = 0f;
     public float stunTime = 2f;
     public bool right = true;
+    public int gunDistance = 7;
+    public float fireRate = 1f;
+    private bool canFire = false;
+    private float fireTimer = 0f;
+
+    private void Start()
+    {
+        canvas = GameManager.instance.canvas;
+        deathScreen = GameManager.instance.deathScreen;
+
+    }
 
     void Update()
     {
@@ -28,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
             Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
             
-            if (Input.GetKey(buttonFire))
+            if (Input.GetKeyDown(buttonFire) && canFire)
             {
 
                 GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
@@ -40,19 +51,20 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
                 }
-
+                canFire = false;
+                fireTimer = 0f;
             }
             if (Input.GetKey(buttonLeft))
             {
                 rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
                 right = false;
-                transform.GetChild(0).transform.position = new Vector2(-Mathf.Abs(transform.GetChild(0).transform.position.x), transform.position.y);
+                transform.GetChild(0).transform.position = new Vector2(transform.position.x - gunDistance, transform.position.y);
             }
             if (Input.GetKey(buttonRight))
             {
                 rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
                 right = true;
-                transform.GetChild(0).transform.position = new Vector2(Mathf.Abs(transform.GetChild(0).transform.position.x), transform.position.y);
+                transform.GetChild(0).transform.position = new Vector2(transform.position.x + gunDistance, transform.position.y);
 
             }
             if (Input.GetKeyDown(buttonJump))
@@ -77,6 +89,12 @@ public class PlayerController : MonoBehaviour
         if (stunTimer >= stunTime)
         {
             stunned = false;
+        }
+
+        fireTimer += Time.deltaTime;
+        if (fireTimer >= fireRate)
+        {
+            canFire = true;
         }
     }
 
