@@ -16,6 +16,7 @@ namespace Mirror.Examples.Pong
             // add player at correct spawn position
             Transform start = numPlayers == 0 ? players.GetChild(0) : players.GetChild(1);
             GameObject player = Instantiate(playerPrefab, start.position, start.rotation, players);
+            NetworkServer.Spawn(player);
             NetworkServer.AddPlayerForConnection(conn, player);
 
             if (numPlayers == 2)

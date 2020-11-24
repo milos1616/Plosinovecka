@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4054316922735213003}
   - component: {fileID: 4054316922735212996}
   - component: {fileID: 4054316922735213000}
-  - component: {fileID: 1525222546635063066}
-  - component: {fileID: 8417143947374571380}
+  - component: {fileID: -375386356029795986}
+  - component: {fileID: 3839113754585623965}
   m_Layer: 5
   m_Name: Player
   m_TagString: Player
@@ -154,7 +154,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 21.057892, y: 47.705235}
   m_EdgeRadius: 0
---- !u!114 &1525222546635063066
+--- !u!114 &-375386356029795986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &8417143947374571380
+--- !u!114 &3839113754585623965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0
-  clientAuthority: 1
+  syncInterval: 0.1
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
