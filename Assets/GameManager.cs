@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour
     public Canvas canvas;
     public GameObject deathScreen;
 
-    void Start()
-    {
-        Time.timeScale = 0f;
-    }
+    
 
 }
