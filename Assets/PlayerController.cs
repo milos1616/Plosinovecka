@@ -41,14 +41,15 @@ public class PlayerController : MonoBehaviour
             
             if (Input.GetKeyDown(buttonFire) && canFire)
             {
-
-                GameObject bulletObject = Instantiate(bullet, transform.GetChild(0));
+                var gunPosition = transform.GetChild(0).position;
                 if (right)
                 {
+                    GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x + 10, gunPosition.y), Quaternion.identity);
                     bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
                 }
                 else
                 {
+                    GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x - 10, gunPosition.y), Quaternion.identity);
                     bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
                 }
                 canFire = false;
@@ -75,13 +76,15 @@ public class PlayerController : MonoBehaviour
                     jumpRemain--;
                 }
             }
-            if (transform.position.x > canvas.pixelRect.width)
+
+            var mainCamera = Camera.main;
+            if (transform.position.x > mainCamera.transform.position.x + mainCamera.scaledPixelWidth / 2)
             {
-                transform.position = new Vector2(0, transform.position.y);
+                transform.position = new Vector2(mainCamera.transform.position.x - mainCamera.scaledPixelWidth / 2, transform.position.y);
             }
-            if (transform.position.x < 0)
+            if (transform.position.x < mainCamera.transform.position.x - mainCamera.scaledPixelWidth / 2)
             {
-                transform.position = new Vector2(canvas.pixelRect.width, transform.position.y);
+                transform.position = new Vector2(mainCamera.transform.position.x + mainCamera.scaledPixelWidth / 2, transform.position.y);
             }
         }
 
