@@ -17,7 +17,13 @@ public class GameManager : MonoBehaviour
 
     public Canvas canvas;
     public GameObject deathScreen;
+    public float speed;
+    public float acceleration = 0.01f;
+    public float maxSpeed = 50f;
+    void Update()
+    {
+        if (speed <= maxSpeed) speed += (Time.deltaTime * acceleration);
+    }
 
-    
 
 }

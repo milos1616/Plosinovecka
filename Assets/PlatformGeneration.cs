@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformGeneration : MonoBehaviour
 {
-    private const float CAMERA_DISTANCE_TRESHOLD = 200f;
+    private const float CAMERA_DISTANCE_TRESHOLD = 300f;
     public float platformDistanceY = 100f;
     public GameObject lastPlatform;
     public GameObject platformPrefab;
@@ -13,10 +13,13 @@ public class PlatformGeneration : MonoBehaviour
 
     void Update()
     {
-        if(lastPlatform.transform.position.y - this.transform.position.y <= CAMERA_DISTANCE_TRESHOLD)
+        Camera cam = Camera.main;
+        float height = 2f * cam.orthographicSize;
+        float width = height * cam.aspect;
+        if (lastPlatform.transform.position.y - this.transform.position.y <= CAMERA_DISTANCE_TRESHOLD)
         {
             var lastPlatformPosition = lastPlatform.transform.position;
-            var xSpawnPos = lastPlatformPosition.x + Random.Range(-lastPlatformPosition.x, Camera.main.pixelWidth - lastPlatformPosition.x);
+            var xSpawnPos = lastPlatformPosition.x + Random.Range(-lastPlatformPosition.x, width - lastPlatformPosition.x);
             if (xSpawnPos > lastPlatformPosition.x + 400) xSpawnPos = lastPlatformPosition.x + 300; 
             if (xSpawnPos < lastPlatformPosition.x - 400) xSpawnPos = lastPlatformPosition.x - 300; 
             Vector3 vector = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY, 1);

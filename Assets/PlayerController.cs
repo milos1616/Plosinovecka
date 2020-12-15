@@ -77,14 +77,16 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            var mainCamera = Camera.main;
-            if (transform.position.x > mainCamera.transform.position.x + mainCamera.scaledPixelWidth / 2)
+            Camera cam = Camera.main;
+            float height = 2f * cam.orthographicSize;
+            float width = height * cam.aspect;
+            if (transform.position.x > cam.transform.position.x + width / 2)
             {
-                transform.position = new Vector2(mainCamera.transform.position.x - mainCamera.scaledPixelWidth / 2, transform.position.y);
+                transform.position = new Vector2(cam.transform.position.x - width / 2, transform.position.y);
             }
-            if (transform.position.x < mainCamera.transform.position.x - mainCamera.scaledPixelWidth / 2)
+            if (transform.position.x < cam.transform.position.x - width / 2)
             {
-                transform.position = new Vector2(mainCamera.transform.position.x + mainCamera.scaledPixelWidth / 2, transform.position.y);
+                transform.position = new Vector2(cam.transform.position.x + width / 2, transform.position.y);
             }
         }
 
