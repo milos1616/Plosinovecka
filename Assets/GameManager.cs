@@ -20,10 +20,25 @@ public class GameManager : MonoBehaviour
     public float speed;
     public float acceleration = 0.01f;
     public float maxSpeed = 50f;
+
+    void Start()
+    {
+        stop();
+    }
+
     void Update()
     {
+        //platform move speed increase over time
         if (speed <= maxSpeed) speed += (Time.deltaTime * acceleration);
     }
 
+    public void play()
+    {
+        Time.timeScale = 1f;
+    }
 
+    public void stop()
+    {
+        Time.timeScale = 0f;
+    }
 }

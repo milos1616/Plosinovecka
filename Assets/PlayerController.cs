@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
 
     public float jumpPower = 700;
@@ -32,74 +33,77 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (!stunned)
+        if (isLocalPlayer)
         {
-
-            Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
-            
-            if (Input.GetKeyDown(buttonFire) && canFire)
+            if (!stunned)
             {
-                var gunPosition = transform.GetChild(0).position;
-                if (right)
+
+                Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
+
+                if (Input.GetKeyDown(buttonFire) && canFire)
                 {
-                    GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x + 10, gunPosition.y), Quaternion.identity);
-                    bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+                    var gunPosition = transform.GetChild(0).position;
+                    if (right)
+                    {
+                        GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x + 10, gunPosition.y), Quaternion.identity);
+                        bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+                    }
+                    else
+                    {
+                        GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x - 10, gunPosition.y), Quaternion.identity);
+                        bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
+                    }
+                    canFire = false;
+                    fireTimer = 0f;
                 }
-                else
+                if (Input.GetKey(buttonLeft))
                 {
-                    GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x - 10, gunPosition.y), Quaternion.identity);
-                    bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
+                    rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
+                    right = false;
+                    transform.GetChild(0).transform.position = new Vector2(transform.position.x - gunDistance, transform.position.y);
                 }
-                canFire = false;
-                fireTimer = 0f;
-            }
-            if (Input.GetKey(buttonLeft))
-            {
-                rb.velocity = new Vector2(-1 * moveSpeed, rb.velocity.y);
-                right = false;
-                transform.GetChild(0).transform.position = new Vector2(transform.position.x - gunDistance, transform.position.y);
-            }
-            if (Input.GetKey(buttonRight))
-            {
-                rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
-                right = true;
-                transform.GetChild(0).transform.position = new Vector2(transform.position.x + gunDistance, transform.position.y);
-
-            }
-            if (Input.GetKeyDown(buttonJump))
-            {
-                if (jumpRemain > 0)
+                if (Input.GetKey(buttonRight))
                 {
-                    rb.AddForce(new Vector2(0, jumpPower));
-                    jumpRemain--;
+                    rb.velocity = new Vector2(1 * moveSpeed, rb.velocity.y);
+                    right = true;
+                    transform.GetChild(0).transform.position = new Vector2(transform.position.x + gunDistance, transform.position.y);
+
+                }
+                if (Input.GetKeyDown(buttonJump))
+                {
+                    if (jumpRemain > 0)
+                    {
+                        rb.AddForce(new Vector2(0, jumpPower));
+                        jumpRemain--;
+                    }
+                }
+
+                Camera cam = Camera.main;
+                float height = 2f * cam.orthographicSize;
+                float width = height * cam.aspect;
+                if (transform.position.x > cam.transform.position.x + width / 2)
+                {
+                    transform.position = new Vector2(cam.transform.position.x - width / 2, transform.position.y);
+                }
+                if (transform.position.x < cam.transform.position.x - width / 2)
+                {
+                    transform.position = new Vector2(cam.transform.position.x + width / 2, transform.position.y);
                 }
             }
 
-            Camera cam = Camera.main;
-            float height = 2f * cam.orthographicSize;
-            float width = height * cam.aspect;
-            if (transform.position.x > cam.transform.position.x + width / 2)
+            stunTimer += Time.deltaTime;
+            if (stunTimer >= stunTime)
             {
-                transform.position = new Vector2(cam.transform.position.x - width / 2, transform.position.y);
+                stunned = false;
             }
-            if (transform.position.x < cam.transform.position.x - width / 2)
+
+            fireTimer += Time.deltaTime;
+            if (fireTimer >= fireRate)
             {
-                transform.position = new Vector2(cam.transform.position.x + width / 2, transform.position.y);
+                canFire = true;
             }
-        }
-
-        stunTimer += Time.deltaTime;
-        if (stunTimer >= stunTime)
-        {
-            stunned = false;
-        }
-
-        fireTimer += Time.deltaTime;
-        if (fireTimer >= fireRate)
-        {
-            canFire = true;
         }
     }
 
@@ -112,13 +116,13 @@ public class PlayerController : MonoBehaviour
             if (Mathf.Approximately(angle, 180))
             {
                 jumpRemain = 2;
-            }          
+            }
         }
         else if (collision.gameObject.tag == "Death")
         {
             Time.timeScale = 0f;
             deathScreen.SetActive(true);
-        }  
+        }
     }
     public void onHit()
     {
