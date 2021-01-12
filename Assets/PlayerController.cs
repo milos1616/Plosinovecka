@@ -31,6 +31,10 @@ public class PlayerController : NetworkBehaviour
         canvas = GameManager.instance.canvas;
         deathScreen = GameManager.instance.deathScreen;
 
+        if (isClientOnly)
+        {
+            GameManager.instance.play();
+        }
     }
 
     void FixedUpdate()

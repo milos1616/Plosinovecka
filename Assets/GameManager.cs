@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
         //platform move speed increase over time
         if (speed <= maxSpeed) speed += (Time.deltaTime * acceleration);
     }

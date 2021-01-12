@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6897871572986305171}
   - component: {fileID: 5969187920404202071}
   - component: {fileID: 7125588975066967375}
+  - component: {fileID: 869726849687616396}
+  - component: {fileID: 3429650620870831355}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Enviroment
@@ -93,8 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656039ecee9db4d46bb0ed1643592252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -10
-  acceleration: 1
 --- !u!212 &7125588975066967375
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -146,3 +146,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &869726849687616396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403327512903588422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &3429650620870831355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403327512903588422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
