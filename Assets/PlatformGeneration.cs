@@ -11,6 +11,7 @@ public class PlatformGeneration : NetworkBehaviour
     public GameObject platformPrefab;
     public Canvas canvas;
     public GameObject parent;
+    public GameObject coinPrefab;
 
     [ServerCallback]
     void LateUpdate()
@@ -27,6 +28,8 @@ public class PlatformGeneration : NetworkBehaviour
             Vector3 vector = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY, 1);
             lastPlatform = Instantiate(platformPrefab, vector, this.transform.rotation, parent.transform);
             NetworkServer.Spawn(lastPlatform);
+            Vector3 vectorCoin = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY + 50, 1);
+            NetworkServer.Spawn(Instantiate(coinPrefab, vectorCoin, this.transform.rotation, parent.transform));
         }
     }
 }

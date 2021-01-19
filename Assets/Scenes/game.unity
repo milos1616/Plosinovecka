@@ -447,6 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1759567465}
   deathScreen: {fileID: 2098899551}
+  coinScore: 0
   speed: 10
   acceleration: 0.1
   maxSpeed: 30
@@ -535,6 +536,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7403327512903588422, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
+  - {fileID: 1953723445650298241, guid: 149d189a405394e4d8dd6e11e4722fba, type: 3}
   playerSpawn: {fileID: 1887527052}
 --- !u!4 &898988061
 Transform:
@@ -1012,6 +1014,7 @@ MonoBehaviour:
   platformPrefab: {fileID: 7403327512903588422, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
   canvas: {fileID: 1759567465}
   parent: {fileID: 1737876290}
+  coinPrefab: {fileID: 1953723445650298241, guid: 149d189a405394e4d8dd6e11e4722fba, type: 3}
 --- !u!1 &1742972783
 GameObject:
   m_ObjectHideFlags: 0
