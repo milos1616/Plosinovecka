@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     #region Singleton
 
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(isClientOnly && Camera.main.transform.position != new Vector3(0,0,-1))
+        {
+            Camera.main.transform.position = new Vector3(0, 0, -1);
+        }
 
         //platform move speed increase over time
         if (speed <= maxSpeed) speed += (Time.deltaTime * acceleration);
