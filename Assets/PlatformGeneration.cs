@@ -27,7 +27,7 @@ public class PlatformGeneration : MonoBehaviour
                 if (xSpawnPos > lastPlatformPosition.x + 400) xSpawnPos = lastPlatformPosition.x + 300;
                 if (xSpawnPos < lastPlatformPosition.x - 400) xSpawnPos = lastPlatformPosition.x - 300;
                 Vector3 vector = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY, 1);
-                lastPlatform = Instantiate(platformPrefab, vector, this.transform.rotation, parent.transform);
+                lastPlatform = Instantiate(platformPrefab, vector, this.transform.rotation);
                 NetworkServer.Spawn(lastPlatform);
             }
         }
