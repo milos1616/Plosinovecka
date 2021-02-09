@@ -9,6 +9,7 @@ public class PlatformGeneration : MonoBehaviour
     public float platformDistanceY = 100f;
     public GameObject lastPlatform;
     public GameObject platformPrefab;
+    public GameObject coinPrefab;
     public Canvas canvas;
     public GameObject parent;
 
@@ -23,12 +24,14 @@ public class PlatformGeneration : MonoBehaviour
             if (lastPlatform.transform.position.y - this.transform.position.y <= CAMERA_DISTANCE_TRESHOLD && NetworkServer.active)
             {
                 var lastPlatformPosition = lastPlatform.transform.position;
-                var xSpawnPos = lastPlatformPosition.x + Random.Range(-lastPlatformPosition.x, width - lastPlatformPosition.x);
+                var xSpawnPos = cam.transform.position.x + Random.Range(-(width/2), width / 2);
                 if (xSpawnPos > lastPlatformPosition.x + 400) xSpawnPos = lastPlatformPosition.x + 300;
                 if (xSpawnPos < lastPlatformPosition.x - 400) xSpawnPos = lastPlatformPosition.x - 300;
                 Vector3 vector = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY, 1);
                 lastPlatform = Instantiate(platformPrefab, vector, this.transform.rotation);
                 NetworkServer.Spawn(lastPlatform);
+                Vector3 vectorCoin = new Vector3(xSpawnPos, lastPlatformPosition.y + platformDistanceY + 50, 1);
+                NetworkServer.Spawn(Instantiate(coinPrefab, vectorCoin, this.transform.rotation));
             }
         }
     }

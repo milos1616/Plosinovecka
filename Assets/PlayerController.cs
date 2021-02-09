@@ -117,7 +117,7 @@ public class PlayerController : NetworkBehaviour
         {
             Vector2 hit = collision.contacts[0].normal;
             float angle = Vector2.Angle(hit, Vector2.down);
-            if (Mathf.Approximately(angle, 180))
+            if (angle > 170 && angle < 190)
             {
                 jumpRemain = 2;
             }

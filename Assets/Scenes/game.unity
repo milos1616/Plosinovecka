@@ -590,6 +590,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7403327512903588422, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
+  - {fileID: 1953723445650298241, guid: 0fe7b23a8e0dfd04e91164c55032a54e, type: 3}
   playerSpawn: {fileID: 1887527052}
 --- !u!4 &898988061
 Transform:
@@ -1134,6 +1135,7 @@ MonoBehaviour:
   platformDistanceY: 75
   lastPlatform: {fileID: 780028512}
   platformPrefab: {fileID: 7403327512903588422, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
+  coinPrefab: {fileID: 1953723445650298241, guid: 0fe7b23a8e0dfd04e91164c55032a54e, type: 3}
   canvas: {fileID: 1759567465}
   parent: {fileID: 1737876290}
 --- !u!1 &1742972783
