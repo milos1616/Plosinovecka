@@ -37,7 +37,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (isLocalPlayer)
         {
