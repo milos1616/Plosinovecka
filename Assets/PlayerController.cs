@@ -20,11 +20,13 @@ public class PlayerController : NetworkBehaviour
     int jumpRemain = 2;
     float stunTimer = 0f;
     public float stunTime = 2f;
-    public bool right = true;
+    private bool right = true;
     public int gunDistance = 7;
     public float fireRate = 1f;
     private bool canFire = false;
     private float fireTimer = 0f;
+
+
 
     private void Start()
     {
@@ -34,9 +36,17 @@ public class PlayerController : NetworkBehaviour
         if (isClientOnly)
         {
             GameManager.instance.play();
+            changeColor();
         }
     }
-
+    
+    [Command]
+    private void fire(Vector2 bulletPosition, Vector2 bulletForce)
+    {
+        GameObject bulletObject = Instantiate(bullet, bulletPosition, Quaternion.identity);
+        bulletObject.GetComponent<Rigidbody2D>().AddForce(bulletForce);
+        NetworkServer.Spawn(bulletObject);
+    }
     void Update()
     {
         if (isLocalPlayer)
@@ -49,16 +59,19 @@ public class PlayerController : NetworkBehaviour
                 if (Input.GetKeyDown(buttonFire) && canFire)
                 {
                     var gunPosition = transform.GetChild(0).position;
+                    Vector2 bulletPosition;
+                    Vector2 bulletForce;
                     if (right)
                     {
-                        GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x + 10, gunPosition.y), Quaternion.identity);
-                        bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(shotPower, bulletObject.transform.position.y));
+                        bulletPosition = new Vector2(gunPosition.x + 10, gunPosition.y);
+                        bulletForce = new Vector2(shotPower, bulletPosition.y);
                     }
                     else
                     {
-                        GameObject bulletObject = Instantiate(bullet, new Vector2(gunPosition.x - 10, gunPosition.y), Quaternion.identity);
-                        bulletObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shotPower, bulletObject.transform.position.y));
+                        bulletPosition = new Vector2(gunPosition.x - 10, gunPosition.y);
+                        bulletForce = new Vector2(-shotPower, bulletPosition.y);
                     }
+                    fire(bulletPosition, bulletForce);
                     canFire = false;
                     fireTimer = 0f;
                 }
@@ -128,10 +141,15 @@ public class PlayerController : NetworkBehaviour
             deathScreen.SetActive(true);
         }
     }
+    [ClientRpc]
     public void onHit()
     {
         stunned = true;
         stunTimer = 0f;
     }
-
+    [ClientRpc]
+    public void changeColor()
+    {
+        GetComponent<Renderer>().material.color = Color.blue;
+    }
 }

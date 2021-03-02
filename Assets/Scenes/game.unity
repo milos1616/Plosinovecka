@@ -591,6 +591,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 7403327512903588422, guid: b722104f92b90eb41a5ff5b426619c1c, type: 3}
   - {fileID: 1953723445650298241, guid: 0fe7b23a8e0dfd04e91164c55032a54e, type: 3}
+  - {fileID: 6490639887403235604, guid: 196a5263f571aa644a5337529087084e, type: 3}
   playerSpawn: {fileID: 1887527052}
 --- !u!4 &898988061
 Transform:

@@ -80,7 +80,7 @@ MonoBehaviour:
   buttonJump: 119
   buttonLeft: 97
   buttonRight: 100
-  buttonFire: 0
+  buttonFire: 32
   bullet: {fileID: 6490639887403235604, guid: 196a5263f571aa644a5337529087084e, type: 3}
   shotPower: 1
   stunTime: 2

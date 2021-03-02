@@ -3,7 +3,10 @@ guid: 8ded11039d8b04a4ba23946a06e5a3a6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - canvas: {instanceID: 0}
+  - deathScreen: {instanceID: 0}
+  - bullet: {fileID: 6490639887403235604, guid: 196a5263f571aa644a5337529087084e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
