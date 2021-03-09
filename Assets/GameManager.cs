@@ -47,4 +47,5 @@ public class GameManager : NetworkBehaviour
     {
         Time.timeScale = 0f;
     }
+
 }

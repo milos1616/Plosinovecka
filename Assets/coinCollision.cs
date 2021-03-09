@@ -10,7 +10,7 @@ public class coinCollision : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(this );
+            Destroy(this.gameObject);
         }
     }
 }

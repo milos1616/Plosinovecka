@@ -25,8 +25,7 @@ public class PlayerController : NetworkBehaviour
     public float fireRate = 1f;
     private bool canFire = false;
     private float fireTimer = 0f;
-
-
+    public int playerID;
 
     private void Start()
     {
@@ -36,7 +35,6 @@ public class PlayerController : NetworkBehaviour
         if (isClientOnly)
         {
             GameManager.instance.play();
-            changeColor();
         }
     }
     
@@ -150,6 +148,9 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void changeColor()
     {
-        GetComponent<Renderer>().material.color = Color.blue;
+        if(isLocalPlayer)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
     }
 }
