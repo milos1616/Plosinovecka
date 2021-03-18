@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -49,6 +50,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            
             if (!stunned)
             {
 
@@ -152,5 +154,11 @@ public class PlayerController : NetworkBehaviour
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
+    }
+    
+    [ClientRpc]
+    public void updateScoreText(int score)
+    {
+        GetComponentInChildren<Text>().text = score.ToString();
     }
 }

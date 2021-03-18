@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ServerManager : MonoBehaviour
 {
@@ -27,8 +28,10 @@ public class ServerManager : MonoBehaviour
         }
     }
     
-    public void addScore(int id, int amount)
+    public void addScore(PlayerController player, int amount, Text scoreText)
     {
+        int id = player.playerID;
         score[id] += amount;
+        player.updateScoreText(score[id]);
     }
 }

@@ -18,6 +18,7 @@ public class NetworkManagerPlosinovecka : NetworkManager
         playerController.playerID = numPlayers - 1;
         if (numPlayers == 2)
         {
+            ServerManager.instance.initialize(numPlayers);
             GameManager.instance.play();
         }
     }
