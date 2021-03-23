@@ -12,5 +12,22 @@ public class platformRemover : MonoBehaviour
         {
             Destroy(collision.collider.gameObject);
         }
+        if (collision.gameObject.tag == "Player")
+        {
+            var players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var P in players)
+            {
+                if (P != collision.collider.gameObject)
+                {
+                    P.GetComponent<PlayerController>().victory();
+                }
+                else
+                {
+                    P.GetComponent<PlayerController>().defeat();
+                }
+            }
+            Destroy(collision.collider.gameObject);
+            GameManager.instance.stop();
+        }
     }
 }

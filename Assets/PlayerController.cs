@@ -38,7 +38,7 @@ public class PlayerController : NetworkBehaviour
             GameManager.instance.play();
         }
     }
-    
+
     [Command]
     private void fire(Vector2 bulletPosition, Vector2 bulletForce)
     {
@@ -50,7 +50,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            
+
             if (!stunned)
             {
 
@@ -135,11 +135,6 @@ public class PlayerController : NetworkBehaviour
                 jumpRemain = 2;
             }
         }
-        else if (collision.gameObject.tag == "Death")
-        {
-            Time.timeScale = 0f;
-            deathScreen.SetActive(true);
-        }
     }
     [ClientRpc]
     public void onHit()
@@ -150,15 +145,35 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void changeColor()
     {
-        if(isLocalPlayer)
+        if (isLocalPlayer)
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
     }
-    
+
     [ClientRpc]
     public void updateScoreText(int score)
     {
         GetComponentInChildren<Text>().text = score.ToString();
+    }
+
+    [ClientRpc]
+    public void victory()
+    {
+        if (isLocalPlayer)
+        {
+            Debug.Log("vyhrals noumo");
+            GameManager.instance.stop();
+        }
+    }
+
+    [ClientRpc]
+    public void defeat()
+    {
+        if (isLocalPlayer)
+        {
+            Debug.Log("prohrals noumo");
+            GameManager.instance.stop();
+        }
     }
 }
