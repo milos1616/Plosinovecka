@@ -136,12 +136,14 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
+
     [ClientRpc]
     public void onHit()
     {
         stunned = true;
         stunTimer = 0f;
     }
+
     [ClientRpc]
     public void changeColor()
     {
@@ -160,20 +162,16 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void victory()
     {
-        if (isLocalPlayer)
-        {
-            Debug.Log("vyhrals noumo");
-            GameManager.instance.stop();
-        }
+        if (!isClientOnly) return;
+        Debug.Log("vyhrals noumo");
+        GameManager.instance.stop();
     }
 
     [ClientRpc]
     public void defeat()
     {
-        if (isLocalPlayer)
-        {
-            Debug.Log("prohrals noumo");
-            GameManager.instance.stop();
-        }
+        if (!isClientOnly) return;
+        Debug.Log("prohrals noumo");
+        GameManager.instance.stop();
     }
 }

@@ -17,16 +17,31 @@ public class platformRemover : MonoBehaviour
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (var P in players)
             {
+                var controller = P.GetComponent<PlayerController>();
                 if (P != collision.collider.gameObject)
                 {
-                    P.GetComponent<PlayerController>().victory();
+                    if(controller.isLocalPlayer)
+                    {
+                        Debug.Log("Vyhrals noumo");
+                    }
+                    else
+                    {
+                        controller.victory();
+                    }
                 }
                 else
                 {
-                    P.GetComponent<PlayerController>().defeat();
+                    if (controller.isLocalPlayer)
+                    {
+                        Debug.Log("Prohrals noumo");
+                    }
+                    else
+                    {
+                        controller.defeat();
+                    }
                 }
             }
-            Destroy(collision.collider.gameObject);
+            //Destroy(collision.collider.gameObject);
             GameManager.instance.stop();
         }
     }
