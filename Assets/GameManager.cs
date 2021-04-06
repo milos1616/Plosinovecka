@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour
 {
@@ -21,7 +22,10 @@ public class GameManager : NetworkBehaviour
     public float speed;
     public float acceleration = 0.01f;
     public float maxSpeed = 50f;
-
+    public GameObject VictoryScreen;
+    public Text VictoryScreenScore;
+    public GameObject LoseScreen;
+    public Text LoseScreenScore;
     void Start()
     {
         stop();

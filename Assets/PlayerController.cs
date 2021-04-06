@@ -27,6 +27,8 @@ public class PlayerController : NetworkBehaviour
     private bool canFire = false;
     private float fireTimer = 0f;
     public int playerID;
+    public int score = 0;
+    
 
     private void Start()
     {
@@ -156,6 +158,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void updateScoreText(int score)
     {
+        this.score = score;
         GetComponentInChildren<Text>().text = score.ToString();
     }
 
@@ -164,6 +167,8 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isClientOnly) return;
         Debug.Log("vyhrals noumo");
+        GameManager.instance.VictoryScreen.SetActive(true);
+        GameManager.instance.VictoryScreenScore.text = score.ToString();
         GameManager.instance.stop();
     }
 
@@ -172,6 +177,8 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isClientOnly) return;
         Debug.Log("prohrals noumo");
+        GameManager.instance.LoseScreen.SetActive(true);
+        GameManager.instance.LoseScreenScore.text = score.ToString();
         GameManager.instance.stop();
     }
 }

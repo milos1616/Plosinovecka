@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class platformRemover : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class platformRemover : MonoBehaviour
                     if(controller.isLocalPlayer)
                     {
                         Debug.Log("Vyhrals noumo");
+                        GameManager.instance.VictoryScreen.SetActive(true);
+                        GameManager.instance.VictoryScreenScore.text = controller.score.ToString();
                     }
                     else
                     {
@@ -34,6 +37,8 @@ public class platformRemover : MonoBehaviour
                     if (controller.isLocalPlayer)
                     {
                         Debug.Log("Prohrals noumo");
+                        GameManager.instance.LoseScreen.SetActive(true);
+                        GameManager.instance.LoseScreenScore.text = controller.score.ToString();
                     }
                     else
                     {
