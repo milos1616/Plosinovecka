@@ -19,7 +19,7 @@ public class PlayerController : NetworkBehaviour
     public float shotPower = 100;
     private bool stunned = false;
     int jumpRemain = 2;
-    float stunTimer = 0f;
+    private float stunTimer = 0f;
     public float stunTime = 2f;
     private bool right = true;
     public int gunDistance = 7;
@@ -160,6 +160,17 @@ public class PlayerController : NetworkBehaviour
     {
         this.score = score;
         GetComponentInChildren<Text>().text = score.ToString();
+    }
+
+    public void resetValues()
+    {
+        stunned = false;
+        stunTimer = stunTime;
+        fireTimer = fireRate;
+        canFire = true;
+        score = 0;
+        jumpRemain = 2;
+        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     [ClientRpc]

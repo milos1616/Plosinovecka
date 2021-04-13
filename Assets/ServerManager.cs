@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,5 +34,11 @@ public class ServerManager : MonoBehaviour
         int id = player.playerID;
         score[id] += amount;
         player.updateScoreText(score[id]);
+    }
+
+    [ServerCallback]
+    public void restart()
+    {
+        GameManager.instance.restart();
     }
 }

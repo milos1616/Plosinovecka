@@ -7,7 +7,6 @@ public class UIManager : MonoBehaviour
 {
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
+        ServerManager.instance.restart();
     }
 }

@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class PlatformGeneration : MonoBehaviour
 {
+    #region Singleton
+
+    public static PlatformGeneration instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
     private const float CAMERA_DISTANCE_TRESHOLD = 300f;
     public float platformDistanceY = 100f;
     public GameObject lastPlatform;
@@ -12,6 +22,8 @@ public class PlatformGeneration : MonoBehaviour
     public GameObject coinPrefab;
     public Canvas canvas;
     public GameObject parent;
+
+
 
     [ServerCallback]
     void LateUpdate()

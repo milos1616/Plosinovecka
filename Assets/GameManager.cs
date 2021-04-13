@@ -26,6 +26,7 @@ public class GameManager : NetworkBehaviour
     public Text VictoryScreenScore;
     public GameObject LoseScreen;
     public Text LoseScreenScore;
+    public GameObject ground;
     void Start()
     {
         stop();
@@ -52,4 +53,27 @@ public class GameManager : NetworkBehaviour
         Time.timeScale = 0f;
     }
 
+    public void restart()
+    {
+        foreach(var platforms in GameObject.FindGameObjectsWithTag("Enviroment"))
+        {
+            Destroy(platforms);
+        }
+        foreach(var coins in GameObject.FindGameObjectsWithTag("Coin"))
+        {
+            Destroy(coins);
+        }
+        var Ground = Instantiate(ground, new Vector3(-19, -216, 0), Quaternion.identity);
+        NetworkServer.Spawn(Ground);
+        PlatformGeneration.instance.lastPlatform = Ground;
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.position = NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position;
+            players[i].GetComponent<PlayerController>().resetValues();
+            GameManager.instance.LoseScreen.SetActive(false);
+            GameManager.instance.VictoryScreen.SetActive(false);
+        }
+        Time.timeScale = 1f;
+    }
 }

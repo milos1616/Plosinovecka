@@ -7,6 +7,16 @@ using UnityEngine;
 public class NetworkManagerPlosinovecka : NetworkManager
 {
 
+    #region Singleton
+
+    public static NetworkManagerPlosinovecka instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
     public Transform playerSpawn;
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
