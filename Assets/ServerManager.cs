@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ServerManager : MonoBehaviour
+public class ServerManager : NetworkBehaviour
 {
 
     #region Singleton
@@ -44,7 +44,7 @@ public class ServerManager : MonoBehaviour
         }
     }
 
-    [ServerCallback]
+    [Command]
     public void restart()
     {
         GameManager.instance.restartServer();

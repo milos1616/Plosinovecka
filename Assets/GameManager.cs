@@ -27,6 +27,7 @@ public class GameManager : NetworkBehaviour
     public GameObject LoseScreen;
     public Text LoseScreenScore;
     public GameObject ground;
+    public bool gameRunning = true;
     void Start()
     {
         stop();
@@ -34,7 +35,7 @@ public class GameManager : NetworkBehaviour
 
     void Update()
     {
-        if(isClientOnly && Camera.main.transform.position != new Vector3(0,0,-1))
+        if (isClientOnly && Camera.main.transform.position != new Vector3(0, 0, -1))
         {
             Camera.main.transform.position = new Vector3(0, 0, -1);
         }
@@ -45,28 +46,27 @@ public class GameManager : NetworkBehaviour
 
     public void play()
     {
-        Time.timeScale = 1f;
+        gameRunning = true;
     }
 
     public void stop()
     {
-        Time.timeScale = 0f;
+        gameRunning = false;
     }
 
     public void restartServer()
     {
-        Time.timeScale = 1f;
         var players = GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.position = NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position;
-            players[i].GetComponent<PlayerController>().resetValues();
+            players[i].GetComponent<PlayerController>().resetValues(NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position);
         }
         foreach (var platforms in GameObject.FindGameObjectsWithTag("Enviroment"))
         {
             Destroy(platforms);
         }
-        foreach(var coins in GameObject.FindGameObjectsWithTag("Coin"))
+        foreach (var coins in GameObject.FindGameObjectsWithTag("Coin"))
         {
             Destroy(coins);
         }
@@ -74,14 +74,23 @@ public class GameManager : NetworkBehaviour
         NetworkServer.Spawn(Ground);
         PlatformGeneration.instance.lastPlatform = Ground;
         ServerManager.instance.resetScore();
-        GameManager.instance.LoseScreen.SetActive(false);
-        GameManager.instance.VictoryScreen.SetActive(false);
+        laterStart();
     }
 
     public void restartClient()
     {
-        Time.timeScale = 1f;
+        play();
         GameManager.instance.LoseScreen.SetActive(false);
         GameManager.instance.VictoryScreen.SetActive(false);
+        laterStart();
+    }
+    
+    [ServerCallback]
+    public void laterStart()
+    {
+        GameManager.instance.LoseScreen.SetActive(false);
+        GameManager.instance.VictoryScreen.SetActive(false);
+        play();
     }
 }
+

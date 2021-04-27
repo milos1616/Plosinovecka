@@ -53,7 +53,7 @@ public class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
 
-            if (!stunned)
+            if (!stunned && GameManager.instance.gameRunning)
             {
 
                 Rigidbody2D rb = this.GetComponent<Rigidbody2D>();
@@ -163,7 +163,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void resetValues()
+    public void resetValues(Vector3 vector)
     {
         stunned = false;
         stunTimer = stunTime;
@@ -172,7 +172,9 @@ public class PlayerController : NetworkBehaviour
         score = 0;
         jumpRemain = 2;
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        if (isClientOnly)
+        this.transform.position = vector;
+        updateScoreText(0);
+;        if (isClientOnly)
         {
             GameManager.instance.restartClient();
         }
@@ -185,7 +187,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("vyhrals noumo");
         GameManager.instance.VictoryScreen.SetActive(true);
         GameManager.instance.VictoryScreenScore.text = score.ToString();
-        //GameManager.instance.stop();
+        GameManager.instance.stop();
     }
 
     [ClientRpc]
@@ -195,6 +197,6 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("prohrals noumo");
         GameManager.instance.LoseScreen.SetActive(true);
         GameManager.instance.LoseScreenScore.text = score.ToString();
-        //GameManager.instance.stop();
+        GameManager.instance.stop();
     }
 }

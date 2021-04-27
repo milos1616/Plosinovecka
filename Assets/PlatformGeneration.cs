@@ -28,7 +28,7 @@ public class PlatformGeneration : MonoBehaviour
     [ServerCallback]
     void LateUpdate()
     {
-        if(Time.timeScale > 0)
+        if(GameManager.instance.gameRunning)
         {
             Camera cam = Camera.main;
             float height = 2f * cam.orthographicSize;
