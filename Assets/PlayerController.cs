@@ -162,6 +162,7 @@ public class PlayerController : NetworkBehaviour
         GetComponentInChildren<Text>().text = score.ToString();
     }
 
+    [ClientRpc]
     public void resetValues()
     {
         stunned = false;
@@ -171,6 +172,10 @@ public class PlayerController : NetworkBehaviour
         score = 0;
         jumpRemain = 2;
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        if (isClientOnly)
+        {
+            GameManager.instance.restartClient();
+        }
     }
 
     [ClientRpc]
@@ -180,7 +185,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("vyhrals noumo");
         GameManager.instance.VictoryScreen.SetActive(true);
         GameManager.instance.VictoryScreenScore.text = score.ToString();
-        GameManager.instance.stop();
+        //GameManager.instance.stop();
     }
 
     [ClientRpc]
@@ -190,6 +195,6 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("prohrals noumo");
         GameManager.instance.LoseScreen.SetActive(true);
         GameManager.instance.LoseScreenScore.text = score.ToString();
-        GameManager.instance.stop();
+        //GameManager.instance.stop();
     }
 }

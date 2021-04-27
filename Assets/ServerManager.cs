@@ -35,10 +35,18 @@ public class ServerManager : MonoBehaviour
         score[id] += amount;
         player.updateScoreText(score[id]);
     }
+    
+    public void resetScore()
+    {
+        for (int i = 0; i < score.Length; i++)
+        {
+            score[i] = 0;
+        }
+    }
 
     [ServerCallback]
     public void restart()
     {
-        GameManager.instance.restart();
+        GameManager.instance.restartServer();
     }
 }

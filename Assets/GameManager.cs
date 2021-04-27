@@ -53,9 +53,16 @@ public class GameManager : NetworkBehaviour
         Time.timeScale = 0f;
     }
 
-    public void restart()
+    public void restartServer()
     {
-        foreach(var platforms in GameObject.FindGameObjectsWithTag("Enviroment"))
+        Time.timeScale = 1f;
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.position = NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position;
+            players[i].GetComponent<PlayerController>().resetValues();
+        }
+        foreach (var platforms in GameObject.FindGameObjectsWithTag("Enviroment"))
         {
             Destroy(platforms);
         }
@@ -66,14 +73,15 @@ public class GameManager : NetworkBehaviour
         var Ground = Instantiate(ground, new Vector3(-19, -216, 0), Quaternion.identity);
         NetworkServer.Spawn(Ground);
         PlatformGeneration.instance.lastPlatform = Ground;
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position;
-            players[i].GetComponent<PlayerController>().resetValues();
-            GameManager.instance.LoseScreen.SetActive(false);
-            GameManager.instance.VictoryScreen.SetActive(false);
-        }
+        ServerManager.instance.resetScore();
+        GameManager.instance.LoseScreen.SetActive(false);
+        GameManager.instance.VictoryScreen.SetActive(false);
+    }
+
+    public void restartClient()
+    {
         Time.timeScale = 1f;
+        GameManager.instance.LoseScreen.SetActive(false);
+        GameManager.instance.VictoryScreen.SetActive(false);
     }
 }
