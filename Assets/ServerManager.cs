@@ -33,7 +33,7 @@ public class ServerManager : NetworkBehaviour
     {
         int id = player.playerID;
         score[id] += amount;
-        player.updateScoreText(score[id]);
+        player.updateScoreTextRPC(score[id]);
     }
     
     public void resetScore()
@@ -44,9 +44,4 @@ public class ServerManager : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void restart()
-    {
-        GameManager.instance.restartServer();
-    }
 }

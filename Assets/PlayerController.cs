@@ -139,6 +139,15 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    private void freeze()
+    {
+        GetComponent<Rigidbody2D>().isKinematic = true;
+    }    
+    private void unFreeze()
+    {
+        GetComponent<Rigidbody2D>().isKinematic = false;
+    }
+
     [ClientRpc]
     public void onHit()
     {
@@ -156,7 +165,11 @@ public class PlayerController : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void updateScoreText(int score)
+    public void updateScoreTextRPC(int score)
+    {
+        updateScoreText(score);
+    }    
+    private void updateScoreText(int score)
     {
         this.score = score;
         GetComponentInChildren<Text>().text = score.ToString();
@@ -174,12 +187,19 @@ public class PlayerController : NetworkBehaviour
         this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         this.transform.position = vector;
         updateScoreText(0);
+        unFreeze();
 ;        if (isClientOnly)
         {
             GameManager.instance.restartClient();
         }
     }
 
+    [Command]
+    public void restartCommand()
+    {
+        GameManager.instance.restartServer();
+    }
+    
     [ClientRpc]
     public void victory()
     {
@@ -187,6 +207,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("vyhrals noumo");
         GameManager.instance.VictoryScreen.SetActive(true);
         GameManager.instance.VictoryScreenScore.text = score.ToString();
+        freeze();
         GameManager.instance.stop();
     }
 
@@ -197,6 +218,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("prohrals noumo");
         GameManager.instance.LoseScreen.SetActive(true);
         GameManager.instance.LoseScreenScore.text = score.ToString();
+        freeze();
         GameManager.instance.stop();
     }
 }

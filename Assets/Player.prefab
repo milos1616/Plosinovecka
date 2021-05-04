@@ -268,6 +268,7 @@ MonoBehaviour:
   gunDistance: 7
   fireRate: 1
   playerID: 0
+  score: 0
 --- !u!61 &4054316922735213000
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -352,11 +353,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4054316922735212998}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 656039ecee9db4d46bb0ed1643592252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &3239804362457976048
 MonoBehaviour:
   m_ObjectHideFlags: 0

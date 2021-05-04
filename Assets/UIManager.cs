@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Mirror;
 
-public class UIManager : NetworkBehaviour
+public class UIManager : MonoBehaviour
 {
     public void restart()
     {
-        ServerManager.instance.GetComponent<NetworkIdentity>().AssignClientAuthority(this.GetComponent<NetworkIdentity>().connectionToClient);
-        ServerManager.instance.restart();
+        foreach (var obj in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            var playerController = obj.GetComponent<PlayerController>();
+            if (playerController.isLocalPlayer)
+            {
+                playerController.restartCommand();
+            }
+        }
+
     }
 }
