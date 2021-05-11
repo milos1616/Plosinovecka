@@ -35,6 +35,11 @@ public class PlayerController : NetworkBehaviour
         canvas = GameManager.instance.canvas;
         deathScreen = GameManager.instance.deathScreen;
 
+        if(!isLocalPlayer)
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+
         if (isClientOnly)
         {
             GameManager.instance.play();
