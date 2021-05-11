@@ -141,11 +141,11 @@ public class PlayerController : NetworkBehaviour
 
     private void freeze()
     {
-        GetComponent<Rigidbody2D>().isKinematic = true;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
     }    
     private void unFreeze()
     {
-        GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 
     [ClientRpc]
@@ -184,7 +184,7 @@ public class PlayerController : NetworkBehaviour
         canFire = true;
         score = 0;
         jumpRemain = 2;
-        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        //this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         this.transform.position = vector;
         updateScoreText(0);
         unFreeze();

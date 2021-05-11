@@ -18,7 +18,7 @@ public class platformRemover : MonoBehaviour
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (var P in players)
             {
-                P.GetComponent<Rigidbody2D>().isKinematic = true;
+                P.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 var controller = P.GetComponent<PlayerController>();
                 if (P != collision.collider.gameObject)
                 {

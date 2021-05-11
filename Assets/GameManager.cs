@@ -61,7 +61,7 @@ public class GameManager : NetworkBehaviour
         {
             players[i].transform.position = NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position;
             players[i].GetComponent<PlayerController>().resetValues(NetworkManagerPlosinovecka.instance.playerSpawn.GetChild(i).position);
-            players[i].GetComponent<Rigidbody2D>().isKinematic = false;
+            players[i].GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
         foreach (var platforms in GameObject.FindGameObjectsWithTag("Enviroment"))
         {
